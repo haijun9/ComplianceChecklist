@@ -9,10 +9,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     * {
-      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     }
 
     header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       background-color: white;
       color: #1a73e8;
       border-bottom: black 3px solid;
@@ -23,121 +27,135 @@
     }
 
     .feature-container {
-      display: flex;
-      justify-content: flex-start;
-      align-items: stretch;
-      height: calc(100vh - 80px);
-      margin: 0;
-      padding: 0;
+      margin-top: 20px;
     }
 
     .feature-box {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      position: relative;
-      background-color: #f8f9fa;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position-y: center;
-      border: 1px solid #ddd;
+      background-color: white;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
       padding: 20px;
-      height: 100%;
-      width: 100%;
+      height: 300px;
       text-align: center;
       text-decoration: none;
-      transition: background-color 0.3s, transform 0.3s, opacity 0.3s ease;
-      overflow: hidden;
-      margin-right: 0;
-      opacity: 1;
+      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      position: relative;
     }
 
-    #download {
-        background-image: url("./icons/download.png");
+    .feature-box::before {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 80px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-bottom: 15px;
     }
 
-    #profile {
-        background-image: url("./icons/profile.png");
-    }
-    
-    #delete {
-        background-image: url("./icons/delete.png");
+    #download::before {
+      background-image: url('./icons/download.png');
     }
 
-    #withdraw {
-        background-image: url("./icons/withdraw.png");
+    #profile::before {
+      background-image: url('./icons/profile.png');
     }
 
-    #form {
-        background-image: url("./icons/form.png");
+    #delete::before {
+      background-image: url('./icons/delete.png');
+    }
+
+    #withdraw::before {
+      background-image: url('./icons/withdraw.png');
+    }
+
+    #form::before {
+      background-image: url('./icons/form.png');
+    }
+
+    #quiz::before {
+      background-image: url('./icons/quiz.png');
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .feature-description {
+      padding: 10px 15px;
+      font-size: 0.9rem;
+      color: #555;
+      border-top: 1px solid #ddd;
+      margin-top: 10px;
     }
 
     .feature-box:hover {
       background-color: #e8f0fe;
       transform: translateY(-5px);
-      opacity: 1;
+      box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
     }
 
-    .feature-box:not(:hover) {
-      opacity: 0.3;
-    }
-
-    .feature-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .feature-description {
-      position: absolute;
-      bottom: -100%;
-      left: 0;
-      right: 0;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.9);
-      color: #333;
-      text-align: center;
-      opacity: 0;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .feature-box:hover .feature-description {
-      bottom: 0;
-      opacity: 1;
+    @media (max-width: 768px) {
+      .feature-box {
+        height: auto;
+      }
     }
   </style>
 </head>
 <body>
-    <header>
+  <header>
     <img src="./icons/logo.png" width="50px" height="50px" alt="로고"> 글로벌 컴플라이언스 의무사항의 기술적 구현 시 점검항목
-    </header>
-    <div class="feature-container">
+  </header>
+
+  <div class="container feature-container">
+    <div class="row gx-3 gy-3">
+      <div class="col-md-4">
         <a class="feature-box" id="download" href="./download/download_main.html">
-            <div class="feature-title">1. 개인정보 다운로드</div>
-            <div class="feature-description">개인정보 제공을 위한 정보주체의 요청부터 수령 후까지, 구현 시 점검해야 하는 항목에 대해 학습합니다.<br><br></div>
+          <div class="feature-title">1. 개인정보 다운로드</div>
+          <div class="feature-description">개인정보 제공을 위한 정보주체의 요청부터 수령 후까지, 구현 시 점검해야 하는 항목에 대해 학습합니다.</div>
         </a>
+      </div>
+      <div class="col-md-4">
         <a class="feature-box" id="profile" href="./profile/profile_main.html">
-            <div class="feature-title">2. 개인정보 열람·정정</div>
-            <div class="feature-description">개인정보를 열람·정정하기 위해 기능을 구현하는 경우 점검해야 <br>하는 항목에 대해 학습합니다.<br><br></div>
+          <div class="feature-title">2. 개인정보 열람·정정</div>
+          <div class="feature-description">개인정보를 열람·정정하기 위해 기능을 구현하는 경우 점검해야 하는 항목에 대해 학습합니다.</div>
         </a>
+      </div>
+      <div class="col-md-4">
         <a class="feature-box" id="delete" href="./delete/delete_main.html">
-            <div class="feature-title">3. 개인정보 삭제</div>
-            <div class="feature-description">개인정보의 삭제를 요청받는 기능을 <br>구현하는 경우, 점검해야 하는 항목에<br>대해 학습합니다.<br><br></div>
+          <div class="feature-title">3. 개인정보 삭제</div>
+          <div class="feature-description">개인정보의 삭제를 요청받는 기능을 구현하는 경우, 점검해야 하는 항목에 대해 학습합니다.</div>
         </a>
+      </div>
+      <div class="col-md-4">
         <a class="feature-box" id="withdraw" href="./withdraw/withdraw_main.html">
-            <div class="feature-title">4. 개인정보 처리정지 및 동의 철회</div>
-            <div class="feature-description">개인정보 처리정지 및 동의 철회를 요청받는 기능 구현 시, 점검해야 <br>하는 항목에 대해 학습합니다.<br><br></div>
+          <div class="feature-title">4. 개인정보 처리정지 및 동의 철회</div>
+          <div class="feature-description">개인정보 처리정지 및 동의 철회를 요청받는 기능 구현 시, 점검해야 하는 항목에 대해 학습합니다.</div>
         </a>
+      </div>
+      <div class="col-md-4">
         <a class="feature-box" id="form" href="./form/form_main.html">
-            <div class="feature-title">5. 개인정보 문의 Form</div>
-            <div class="feature-description">개인정보 관련 모든 문의를 접수 가능한 Form 구현 시 점검해야 하는 <br>항목에 대해 학습합니다.<br><br></div>
+          <div class="feature-title">5. 개인정보 문의 Form</div>
+          <div class="feature-description">개인정보 관련 모든 문의를 접수 가능한 Form 구현 시 점검해야 하는 항목에 대해 학습합니다.</div>
         </a>
+      </div>
+      <div class="col-md-4">
+        <a class="feature-box" id="quiz" href="https://yyyy7246.github.io/ComprightQuiz/">
+          <div class="feature-title">6. 관련 퀴즈 풀러가기</div>
+          <div class="feature-description">학습한 정보를 기반으로 구현 사례를 비교해보며 자신의 실력을 간단하게 점검할 수 있습니다.</div>
+        </a>
+      </div>
     </div>
-    <!-- Bootstrap Icons -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
