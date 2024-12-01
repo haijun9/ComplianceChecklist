@@ -74,6 +74,64 @@
       justify-content: center;
       border-radius: 8px;
     }
+
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+        border-color: transparent;
+      }
+
+      50% {
+        opacity: 0.5;
+        border-color: red;
+      }
+    }
+
+    .blink-button {
+      animation: blink 1s infinite;
+      border: 4px solid transparent;
+      border-radius: 8px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+
+    .popup {
+      position: fixed;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: auto;
+      font-size: 16px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 1000;
+    }
+
+    .popup-title {
+      font-weight: bold;
+      color: #004667;
+      margin-bottom: 10px;
+    }
+
+    .popup .close-button {
+      display: block;
+      margin: 20px auto 0 auto;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -137,32 +195,117 @@
           <div class="Frame33" style="flex: 1 1 0; align-self: stretch; padding-top: 20px; flex-direction: column; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
             <div style="width: 1081px; height: 52px; color: black; font-size: 32px; font-weight: 800; word-wrap: break-word">개인정보 다운로드</div>
             <div class="Card" style="width: 1023px; height: 787px; padding: 12px; background: white; box-shadow: 0px 14px 42px rgba(8.24, 15.25, 52.06, 0.06); border-radius: 12px; justify-content: center; align-items: center; gap: 17px;">
-              <button style="width: 31px; height: 29px; left: 960px; top: 110px; position: relative; transform: rotate(180deg); transform-origin: 0 0; color: black; font-size: 36px; font-weight: 500; word-wrap: break-word; background-color: #FFF; border: #FFF" onClick="location.href='./download_main.html'">></button>
-              <div style="width: 240px; height: 29px; left: 420px; top: 0px; position: relative; color: black; font-size: 32px; font-weight: 800; word-wrap: break-word">다운로드 확인</div>
+              <button class="blink-button" style="width: 31px; height: 29px; left: 960px; top: 110px; position: relative; transform: rotate(180deg); transform-origin: 0 0; color: black; font-size: 36px; font-weight: 500; word-wrap: break-word; background-color: #FFF; border: #FFF" onClick="location.href='./download_main.html'">></button>
+              <div class="blink-button" id="response" style="cursor: pointer; width: 210px; height: 50px; left: 420px; top: 0px; position: relative; color: black; font-size: 32px; font-weight: 800; word-wrap: break-word">다운로드 확인</div>
               <div style="width: 900px; height: 61px; left: 40px; top: 50px; position: relative; color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">보안을 위하여 다운로드 요청 시 사용된 사용자 이메일 주소를 통한 인증을 진행합니다.</div>
               <div class="Group60" style="width: 451px; height: 53px; left: 40px; top: 0px; position: relative">
-                <div class="Rectangle3" style="width: 451px; height: 53px; left: 0px; top: 30px; position: relative; background: #D9D9D9"></div>
-                <div style="width: 170px; height: 29px; left: 22px; top: -15px; position: relative; color: black; font-size: 24px; font-weight: 500; word-wrap: break-word">인증 번호</div>
+                <div class="blink-button Rectangle3" id="code" style="cursor: pointer; width: 451px; height: 53px; left: 0px; top: 30px; position: relative; background: #D9D9D9">
+                  <div style="width: 170px; height: 29px; left: 22px; top: 5px; position: relative; color: black; font-size: 24px; font-weight: 500; word-wrap: break-word">인증 번호</div>
+              </div>
               </div>
               <div class="Group61" style="width: 156.97px; height: 56.41px; left: 620px; top: -25px; position: relative">
-                <div class="Rectangle4" style="width: 150px; height: 56.41px; left: 0px; top: 0px; position: relative; background: #D9D9D9; border-radius: 60px"></div>
-                <div style="width: 230px; height: 21px; left: 42px; top: -45px; position: relative; color: black; font-size: 24px; font-weight: 500; word-wrap: break-word">재전송</div>
+                <div class="Rectangle4 blink-button" id="auth" style="cursor: pointer; width: 150px; height: 56.41px; left: 0px; top: 0px; position: relative; background: #D9D9D9; border-radius: 60px">
+                  <div style="width: 230px; height: 21px; left: 42px; top: 8px; position: relative; color: black; font-size: 24px; font-weight: 500; word-wrap: break-word">재전송</div>
+                </div>
               </div>
               <div class="Group62" style="width: 134px; height: 56.41px; left: 800px; top: -80px; position: relative">
                 <div class="Rectangle4" style="width: 134px; height: 56.41px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px"></div>
                 <div style="width: 230px; height: 21.08px; left: 46px; top: -45px; position: relative; color: white; font-size: 24px; font-weight: 500; word-wrap: break-word">확인</div>
               </div>
               <div style="width: 880px; height: 27px; left: 40px; top: -60px; position: relative; color: black; font-size: 20px; font-weight: 700; word-wrap: break-word">인증이 완료되었습니다.</div>
-              <div class="7Xxxx" style="width: 900px; height: 62px; left: 40px; top: -30px; position: relative"><span style="color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">접수 번호와 하단의 개인정보 목록은 이메일로 안내드린 완료일로부터 </span><span style="color: black; font-size: 20px; font-weight: 700; word-wrap: break-word">X일</span><span style="color: black; font-size: 20px; font-weight: 400; word-wrap: break-word"> 간 다운로드 가능합니다.<br>각 파일의 비밀번호는 </span><span style="color: black; font-size: 20px; font-weight: 700; word-wrap: break-word">XXXX+확장자</span><span style="color: black; font-size: 20px; font-weight: 400; word-wrap: break-word"> 입니다.</span></div>
-              <div class="Rectangle3" style="width: 940px; height: 300px; left: 40px; top: -20px; position: relative; background: #D9D9D9">
+              <div class="blink-button 7Xxxx" id="description" style="cursor: pointer; width: 900px; height: 62px; left: 40px; top: -30px; position: relative"><span style="color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">접수 번호와 하단의 개인정보 목록은 이메일로 안내드린 완료일로부터 </span><span style="color: black; font-size: 20px; font-weight: 700; word-wrap: break-word">X일</span><span style="color: black; font-size: 20px; font-weight: 400; word-wrap: break-word"> 간 다운로드 가능합니다.<br>각 파일의 비밀번호는 </span><span style="color: black; font-size: 20px; font-weight: 700; word-wrap: break-word">XXXX+확장자</span><span style="color: black; font-size: 20px; font-weight: 400; word-wrap: break-word"> 입니다.</span></div>
+              <div class="blink-button Rectangle3" id="files" style="cursor: pointer; width: 900px; height: 300px; left: 40px; top: -20px; position: relative; background: #D9D9D9">
                 <div class="1Json" style="width: 260px; height: 29px; left: 30px; top: 30px; position: relative; color: blue; text-decoration: underline; font-size: 24px; font-weight: 500; word-wrap: break-word">서비스1_개인정보.json</div>
-              <div class="2Html" style="width: 260px; height: 29px; left: 30px; top: 60px; position: relative; color: blue; text-decoration: underline; font-size: 24px; font-weight: 500; word-wrap: break-word">서비스2_개인정보.html</div>
-              <div class="3Csv" style="width: 260px; height: 29px; left: 30px; top: 90px; position: relative; color: blue; text-decoration: underline; font-size: 24px; font-weight: 500; word-wrap: break-word">서비스3_개인정보.csv</div>
-              <div class="4Pdf" style="width: 260px; height: 29px; left: 30px; top: 120px; position: relative; color: blue; text-decoration: underline; font-size: 24px; font-weight: 500; word-wrap: break-word">서비스4_개인정보.pdf</div>
+                <div class="2Html" style="width: 260px; height: 29px; left: 30px; top: 60px; position: relative; color: blue; text-decoration: underline; font-size: 24px; font-weight: 500; word-wrap: break-word">서비스2_개인정보.html</div>
+                <div class="3Csv" style="width: 260px; height: 29px; left: 30px; top: 90px; position: relative; color: blue; text-decoration: underline; font-size: 24px; font-weight: 500; word-wrap: break-word">서비스3_개인정보.csv</div>
+                <div class="4Pdf" style="width: 260px; height: 29px; left: 30px; top: 120px; position: relative; color: blue; text-decoration: underline; font-size: 24px; font-weight: 500; word-wrap: break-word">서비스4_개인정보.pdf</div>
               </div>
             </div>
           </div>
         </div>
        </div>
+
+       <!-- 팝업 배경 (모달) -->
+       <div id="modalOverlay" class="modal-overlay"></div>
+
+       <!-- 팝업 -->
+       <div id="responsePopup" class="popup">
+         <div class="popup-title">파일 제공</div>
+         다운로드 파일이 준비되었을 경우 정보주체에게 동의 받은 수단을 통한 알림을 제공하세요.<br>
+         다운로드 파일 제공 전, 2차 인증을 진행하는 것으로 본인 확인을 진행할 수 있습니다.
+         <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+       </div>
+ 
+       <div id="codePopup" class="popup">
+         <div class="popup-title">인증 코드</div>
+         2차 인증 시 과도한 요청 횟수에 대한 제한 및 차단이 진행되는지 확인하세요.<br>
+         또한 특수문자 입력을 제한 받는 것으로 공격 시도에 대한 예방이 가능합니다.
+         <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+       </div>
+
+       
+       <div id="authPopup" class="popup">
+        <div class="popup-title">횟수 제한</div>
+        2차 인증 시 과도한 요청 횟수에 대한 제한 및 차단이 진행되는지 확인하세요.<br>
+        과도한 요청에 대한 의심스러운 행동에 대하여 빠른 조치가 가능합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <div id="descriptionPopup" class="popup">
+        <div class="popup-title">다운로드 안내</div>
+        파일 다운로드 만료 기간을 설정하여 유출에 대한 위험을 최소화하세요.<br>
+        또한 제공하는 파일을 암호화하고 인증된 요청자에게만 비밀번호를 제공하여 기밀성을 높입니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <div id="filesPopup" class="popup">
+        <div class="popup-title">다운로드 경로</div>
+        다운로드 시 패킷 및 URL 내에 개인정보가 포함되어 있지 않도록 주의하세요.<br>
+        정보를 유추할 수 있거나 링크에 접근하는 것만으로 다운로드가 수행되어선 안됩니다.<br>
+        항상 사용자 인증 여부를 확인한 후에 진행하세요.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+ 
+       <script>
+         function togglePopup(popupId) {
+           const popup = document.getElementById(popupId);
+           const modalOverlay = document.getElementById('modalOverlay');
+ 
+           if (popup.style.display === 'block') {
+             popup.style.display = 'none';
+             modalOverlay.style.display = 'none';
+           } else {
+             popup.style.display = 'block';
+             modalOverlay.style.display = 'block';
+           }
+         }
+ 
+         function closePopup() {
+           document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+           document.getElementById('modalOverlay').style.display = 'none';
+         }
+ 
+         document.getElementById('response').addEventListener('click', function () {
+           togglePopup('responsePopup');
+         });
+ 
+         document.getElementById('code').addEventListener('click', function () {
+           togglePopup('codePopup');
+         });
+ 
+         document.getElementById('auth').addEventListener('click', function () {
+           togglePopup('authPopup');
+         });
+
+         document.getElementById('description').addEventListener('click', function () {
+           togglePopup('descriptionPopup');
+         });
+
+         document.getElementById('files').addEventListener('click', function () {
+           togglePopup('filesPopup');
+         });
+
+         document.getElementById('modalOverlay').addEventListener('click', closePopup);
+       </script>
 </body>
 </html>

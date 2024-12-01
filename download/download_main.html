@@ -58,19 +58,63 @@
         border-color: #fff;
     }
 
+    /* 깜빡거림 애니메이션 */
     @keyframes blink {
       0%,
       100% {
         opacity: 1;
+        border-color: transparent;
       }
 
       50% {
         opacity: 0.5;
+        border-color: red;
       }
     }
 
     .blink-button {
       animation: blink 1s infinite;
+      border: 4px solid transparent;
+      border-radius: 8px;
+    }
+    
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+
+    .popup {
+      position: fixed;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: auto;
+      font-size: 16px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 1000;
+    }
+
+    .popup-title {
+      font-weight: bold;
+      color: #004667;
+      margin-bottom: 10px;
+    }
+
+    .popup .close-button {
+      display: block;
+      margin: 20px auto 0 auto;
+      text-align: center;
     }
   </style>
 </head>
@@ -106,7 +150,7 @@
                   <div class="Btn" style="align-self: stretch; padding-top: 8px; padding-bottom: 8px; background: white; border-radius: 40px; justify-content: flex-start; align-items: center; gap: 12px; display: inline-flex">
                     <div class="Dashboard" style="flex: 1 1 0; color: #1A1818; font-size: 16px; font-weight: 600; word-wrap: break-word">개인정보 권리</div>
                   </div>
-                  <div class="Btn" style="align-self: stretch; padding-top: 8px; padding-bottom: 8px; border-radius: 40px; justify-content: flex-start; align-items: center; gap: 12px; display: inline-flex">
+                  <div class="blink-button" id="download" style="cursor:pointer; align-self: stretch; padding-top: 8px; padding-bottom: 8px; justify-content: flex-start; align-items: center; gap: 12px; display: inline-flex">
                     <img src="../icons/download.png" style="height: 15px; width: 15px; filter: invert(17%) sepia(98%) saturate(1052%) hue-rotate(170deg) brightness(99%) contrast(101%);">
                     <div class="Dashboard" style="flex: 1 1 0; color: #014768; font-size: 16px; font-weight: 500; word-wrap: break-word">개인정보 다운로드</div>
                   </div>
@@ -133,7 +177,9 @@
             </div>
           </div>
           <div class="Frame32" style="flex: 1 1 0; align-self: stretch; padding-top: 20px; flex-direction: column; justify-content: flex-start; align-items: center; gap: 24px; display: flex">
-            <div style="width: 1081px; height: 52px; color: black; font-size: 40px; font-weight: 800; word-wrap: break-word">개인정보 다운로드</div>
+            <div style="width: 1081px; height: 52px; color: black; font-size: 40px; font-weight: 800; word-wrap: break-word">
+              <span class="blink-button" id="title" style="cursor: pointer">개인정보 다운로드</span>
+            </div>
             <div class="Card" style="width: 1023px; height: 787px; padding: 12px; background: white; box-shadow: 0px 14px 42px rgba(8.24, 15.25, 52.06, 0.06); border-radius: 12px; justify-content: center; align-items: center; gap: 17px">
               <div class="ComprightCompright" style="width: 960px; height: 61px; left: 20px; position: relative; top: 20px; color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">귀하께선 CompRight를 이용하면서 제공한 항목, 수행한 활동, CompRight 측이 수집하는 항목 및 수행하는<br>활동에 대해 확인할 수 있습니다.</div>
               <br>
@@ -153,5 +199,53 @@
           </div>
         </div> 
       </div>
+
+      <!-- 팝업 배경 (모달) -->
+      <div id="modalOverlay" class="modal-overlay"></div>
+
+      <!-- 팝업 -->
+      <div id="titlePopup" class="popup">
+        <div class="popup-title">패킷 및 URL</div>
+        다운로드 요청 및 확인 가능이 쉽게 인지할 수 있는 위치에 있는지 확인하세요.<br>
+        정보주체의 접근성에 대해 객관적으로 간편해야 합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <div id="downloadPopup" class="popup">
+        <div class="popup-title">접근 위치</div>
+        내부에 불필요한 개인정보가 포함되지 않았는지 확인하세요.<br>
+        내부에 포함된 정보가 단순하거나 명시적이어 유추 가능하도록 구성되어선 안됩니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <script>
+        function togglePopup(popupId) {
+          const popup = document.getElementById(popupId);
+          const modalOverlay = document.getElementById('modalOverlay');
+
+          if (popup.style.display === 'block') {
+            popup.style.display = 'none';
+            modalOverlay.style.display = 'none';
+          } else {
+            popup.style.display = 'block';
+            modalOverlay.style.display = 'block';
+          }
+        }
+
+        function closePopup() {
+          document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+          document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        document.getElementById('title').addEventListener('click', function () {
+          togglePopup('titlePopup');
+        });
+
+        document.getElementById('download').addEventListener('click', function () {
+          togglePopup('downloadPopup');
+        });
+
+        document.getElementById('modalOverlay').addEventListener('click', closePopup);
+      </script>
 </body>
 </html>
