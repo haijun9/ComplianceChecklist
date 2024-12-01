@@ -57,6 +57,64 @@
         background: #fff;
         border-color: #fff;
     }
+            
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+        border-color: transparent;
+      }
+
+      50% {
+        opacity: 0.5;
+        border-color: red;
+      }
+    }
+
+    .blink-button {
+      animation: blink 1s infinite;
+      border: 4px solid transparent;
+      border-radius: 8px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+
+    .popup {
+      position: fixed;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: auto;
+      font-size: 16px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 1000;
+    }
+
+    .popup-title {
+      font-weight: bold;
+      color: #004667;
+      margin-bottom: 10px;
+    }
+
+    .popup .close-button {
+      display: block;
+      margin: 20px auto 0 auto;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -122,15 +180,16 @@
               <div style="width: 1081px; height: 52px; color: black; font-size: 32px; font-weight: 800; word-wrap: break-word">프로필</div>
               <div class="Card" style="width: 1023px; height: 795px; padding: 12px; background: white; box-shadow: 0px 14px 42px rgba(8.24, 15.25, 52.06, 0.06); border-radius: 12px">
                 <div style="width: 236px; height: 52px; left: 40px; top: 20px; position: relative; color: black; font-size: 24px; font-weight: 600; word-wrap: break-word">이메일 주소 인증
-                  <button style="width: 31px; height: 29px; left: 750px; top: 50px; position: relative; transform: rotate(180deg); transform-origin: 0 0; color: black; font-size: 36px; font-weight: 500; word-wrap: break-word; background-color: #FFF; border: #FFF" onClick="location.href='./profile_main.html'">></button>
+                  <button class="blink-button" style="width: 31px; height: 29px; left: 750px; top: 50px; position: relative; transform: rotate(180deg); transform-origin: 0 0; color: black; font-size: 36px; font-weight: 500; word-wrap: break-word; background-color: #FFF; border: #FFF" onClick="location.href='./profile_main.html'">></button>
                 </div>
                 <div class="AbcMailCom" style="width: 927px; height: 52px; left: 40px; top: 20px; position: relative"><span style="color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">보안을 위하여 사용자 이메일 주소 </span><span style="color: black; font-size: 18px; font-weight: 700; word-wrap: break-word">(abc****@mail.com)</span><span style="color: black; font-size: 18px; font-weight: 500; word-wrap: break-word"> 인증 번호를 전송하였습니다.</span></div>
-                <div class="Rectangle16" style="width: 514px; height: 53px; left: 240px; top: 40px; position: relative; background: #D9D9D9">
-                  <span style="width: 124px; height: 29px; left: 20px; top: 12px; position: relative; color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">인증 코드</span>
+                <div class="blink-button Rectangle16" id="code" style="cursor: pointer; width: 514px; height: 53px; left: 240px; top: 40px; position: relative; background: #D9D9D9">
+                  <span style="width: 124px; height: 29px; left: 20px; top: 8px; position: relative; color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">인증 코드</span>
                 </div>
                 <div class="Group23" style="width: 322px; height: 91px; left: 160px; top: 30px; position: relative">
-                  <div class="Rectangle4" style="width: 250px; height: 91px; left: 0px; top: 60px; position: relative; background: #D9D9D9; border-radius: 60px"></div>
-                  <div style="width: 144px; height: 34px; left: 66px; top: -3px; position: relative; color: #1A1818; font-size: 24px; font-weight: 500; word-wrap: break-word">재전송 요청</div>
+                  <div class="blink-button Rectangle4" id="auth" style="cursor: pointer; width: 250px; height: 91px; left: 0px; top: 60px; position: relative; background: #D9D9D9; border-radius: 60px">
+                    <div style="width: 144px; height: 34px; left: 63px; top: 24px; position: relative; color: #1A1818; font-size: 24px; font-weight: 500; word-wrap: break-word">재전송 요청</div>
+                  </div>
                 </div>
                 <div class="Group26" style="width: 322px; height: 0px; left: 580px; top: 0px; position: relative">
                   <div class="Rectangle4" style="width: 250px; height: 91px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px"></div>
@@ -140,6 +199,54 @@
             </div>
           </div>
           </div>
+        </div>
+      
+      <!-- 팝업 배경 (모달) -->
+      <div id="modalOverlay" class="modal-overlay"></div>
+
+      <!-- 팝업 -->
+      <div id="codePopup" class="popup">
+        <div class="popup-title">인증 코드</div>
+        인증 코드가 유추하기 힘들면서 안전한 길이로 발급되고 있는지 확인하세요.<br>
+        또한 특수문자 입력을 제한하는 것으로 공격 시도에 대한 예방이 가능합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
       </div>
+
+      <div id="authPopup" class="popup">
+        <div class="popup-title">횟수 제한</div>
+        2차 인증 시 과도한 요청 횟수에 대한 제한 및 차단이 진행되는지 확인하세요.<br>
+        과도한 요청과 같은 의심스러운 행동에 대하여 빠른 조치가 가능합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <script>
+        function togglePopup(popupId) {
+          const popup = document.getElementById(popupId);
+          const modalOverlay = document.getElementById('modalOverlay');
+
+          if (popup.style.display === 'block') {
+            popup.style.display = 'none';
+            modalOverlay.style.display = 'none';
+          } else {
+            popup.style.display = 'block';
+            modalOverlay.style.display = 'block';
+          }
+        }
+
+        function closePopup() {
+          document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+          document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        document.getElementById('code').addEventListener('click', function () {
+          togglePopup('codePopup');
+        });
+
+        document.getElementById('auth').addEventListener('click', function () {
+          togglePopup('authPopup');
+        });
+
+        document.getElementById('modalOverlay').addEventListener('click', closePopup);
+      </script>
 </body>
 </html>
