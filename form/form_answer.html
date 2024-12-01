@@ -57,6 +57,64 @@
         background: #fff;
         border-color: #fff;
     }
+                
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+        border-color: transparent;
+      }
+
+      50% {
+        opacity: 0.5;
+        border-color: red;
+      }
+    }
+
+    .blink-button {
+      animation: blink 1s infinite;
+      border: 4px solid transparent;
+      border-radius: 8px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+
+    .popup {
+      position: fixed;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: auto;
+      font-size: 16px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 1000;
+    }
+
+    .popup-title {
+      font-weight: bold;
+      color: #004667;
+      margin-bottom: 10px;
+    }
+
+    .popup .close-button {
+      display: block;
+      margin: 20px auto 0 auto;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -120,8 +178,9 @@
           <div class="Frame33" style="flex: 1 1 0; align-self: stretch; padding-top: 20px; flex-direction: column; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
             <div style="width: 1081px; height: 52px; color: black; font-size: 32px; font-weight: 800; word-wrap: break-word">개인정보 문의</div>
             <div class="Card" style="width: 1023px; height: 630px; padding: 12px; background: white; box-shadow: 0px 14px 42px rgba(8.24, 15.25, 52.06, 0.06); border-radius: 12px; justify-content: center; align-items: center; gap: 17px">
-              <div style="width: 193px; height: 29px; left: 440px; top: 0px; position: relative; color: black; font-size: 24px; font-weight: 600; word-wrap: break-word">답변 확인
-                <button style="width: 31px; height: 29px; left: 430px; top: 60px; position: relative; transform: rotate(180deg); transform-origin: 0 0; color: black; font-size: 36px; font-weight: 500; word-wrap: break-word; background-color: #FFF; border: #FFF" onClick="location.href='./form_main.html'">></button>
+              <div style="width: 193px; height: 29px; left: 440px; top: 0px; position: relative; color: black; font-size: 24px; font-weight: 600; word-wrap: break-word">
+                <span class="blink-button" id="title" style="cursor: pointer">답변 확인</span>
+                <button class="blink-button" style="width: 31px; height: 29px; left: 430px; top: 60px; position: relative; transform: rotate(180deg); transform-origin: 0 0; color: black; font-size: 36px; font-weight: 500; word-wrap: break-word; background-color: #FFF; border: #FFF" onClick="location.href='./form_main.html'">></button>
               </div>
               <div class="Group57" style="width: 451px; height: 50px; left: 40px; top: 50px; position: relative">
                 <div class="Rectangle3" style="width: 451px; height: 50px; left: 0px; top: 0px; position: relative; background: #D9D9D9"></div>
@@ -133,8 +192,9 @@
               </div>
               <div style="width: 891px; height: 61px; left: 40px; top: 30px; position: relative; color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">보안을 위하여 신청하셨던 이메일 주소로 인증 번호를 전송하였습니다.</div>
               <div class="Group60" style="width: 451px; height: 53px; left: 40px; top: 0px; position: relative">
-                <div class="Rectangle3" style="width: 451px; height: 53px; left: 0px; top: 0px; position: relative; background: #D9D9D9"></div>
-                <div style="width: 108.80px; height: 29px; left: 14.92px; top: -39px; position: relative; color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">인증 번호</div>
+                <div class="Rectangle3 blink-button" id="auth" style="cursor: pointer; width: 451px; height: 53px; left: 0px; top: 0px; position: relative; background: #D9D9D9">
+                  <div style="width: 108.80px; height: 29px; left: 14.92px; top: 10px; position: relative; color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">인증 번호</div>
+                </div>
               </div>
               <div class="Group62" style="width: 134px; height: 56.41px; left: 760px; top: -54px; position: relative">
                 <div class="Rectangle4" style="width: 134px; height: 56.41px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px"></div>
@@ -145,12 +205,75 @@
                 <div style="width: 78px; height: 21px; left: 41px; top: -44px; position: relative; color: black; font-size: 22px; font-weight: 500; word-wrap: break-word">재전송</div>
               </div>
               <div class="Group63" style="width: 915px; height: 300px; left: 40px; top: -70px; position: relative">
-                <div class="Rectangle3" style="width: 915px; height: 300px; left: 0px; top: 0px; position: relative; background: #D9D9D9"></div>
-                <div style="width: 229px; height: 29px; left: 24px; top: -290px; position: relative; color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">답변 내용</div>
+                <div class="blink-button Rectangle3" id="answer" style="cursor: pointer; width: 915px; height: 300px; left: 0px; top: 0px; position: relative; background: #D9D9D9">
+                  <div style="width: 229px; height: 29px; left: 24px; top: 20px; position: relative; color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">답변 내용</div>
+                </div>
               </div>
             </div>
           </div>
         </div>  
       </div>
+
+       <!-- 팝업 배경 (모달) -->
+       <div id="modalOverlay" class="modal-overlay"></div>
+
+       <!-- 팝업 -->
+       <div id="titlePopup" class="popup">
+        <div class="popup-title">패킷 및 URL</div>
+        요청자 본인 이외의 사람에게 답변 내용이 확인되지 않도록 패킷 및 URL을 구성해야 합니다.<br>
+        패킷 및 URL 내 개인정보가 포함되거나 유추하기 쉽게 구성되지 않도록 확인하세요.<br>
+        또한 링크만으로 답변을 확인하도록 구성되서는 안됩니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+       <div id="authPopup" class="popup">
+        <div class="popup-title">본인 인증</div>
+        요청자 본인 이외의 사람에게 답변 내용이 확인되지 않도록 2차 인증을 진행합니다.<br>
+        2차 인증 시 과도한 요청 횟수에 대한 제한 및 차단이 진행되는지 확인하세요.<br>
+        과도한 요청과 같은 의심스러운 행동에 대하여 빠른 조치가 가능합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <div id="answerPopup" class="popup">
+        <div class="popup-title">다운로드 답변의 경우</div>
+        다운로드 문의에 관한 답변인 경우에 확인해야 하는 항목들입니다.<br>
+        개인정보 파일 다운로드가 가능한 기간이 명시되어 있는지 확인하세요.<br>
+        또한 다운로드 파일에 대한 암호화를 진행하여, 수령 후의 보안도 고려해야 합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+       <script>
+         function togglePopup(popupId) {
+           const popup = document.getElementById(popupId);
+           const modalOverlay = document.getElementById('modalOverlay');
+ 
+           if (popup.style.display === 'block') {
+             popup.style.display = 'none';
+             modalOverlay.style.display = 'none';
+           } else {
+             popup.style.display = 'block';
+             modalOverlay.style.display = 'block';
+           }
+         }
+ 
+         function closePopup() {
+           document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+           document.getElementById('modalOverlay').style.display = 'none';
+         }
+
+         document.getElementById('title').addEventListener('click', function () {
+           togglePopup('titlePopup');
+         });
+
+         document.getElementById('auth').addEventListener('click', function () {
+           togglePopup('authPopup');
+         });
+
+         document.getElementById('answer').addEventListener('click', function () {
+           togglePopup('answerPopup');
+         });
+
+         document.getElementById('modalOverlay').addEventListener('click', closePopup);
+       </script>
 </body>
 </html>

@@ -57,6 +57,64 @@
         background: #fff;
         border-color: #fff;
     }
+            
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+        border-color: transparent;
+      }
+
+      50% {
+        opacity: 0.5;
+        border-color: red;
+      }
+    }
+
+    .blink-button {
+      animation: blink 1s infinite;
+      border: 4px solid transparent;
+      border-radius: 8px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+
+    .popup {
+      position: fixed;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: auto;
+      font-size: 16px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 1000;
+    }
+
+    .popup-title {
+      font-weight: bold;
+      color: #004667;
+      margin-bottom: 10px;
+    }
+
+    .popup .close-button {
+      display: block;
+      margin: 20px auto 0 auto;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -141,26 +199,73 @@
             <div style="width: 18px; height: 34px; left: 24px; top: -46px; position: relative; color: white; font-size: 22px; font-weight: 500; word-wrap: break-word">2</div>
           </div>
         </div>
-        <div class="Group53" style="width: 391px; height: 239px; left: 25px; top: 0px; position: relative">
+        <div class="blink-button Group53" id="review" style="cursor: pointer; width: 950px; height: 245px; left: 25px; top: 0px; position: relative">
           <div class="Rectangle3" style="width: 388.95px; height: 239px; left: 0px; top: 0px; position: relative; background: #D9D9D9"></div>
           <div class="OooAbcMailCom820105678Ooo" style="width: 381.56px; height: 196px; left: 20px; top: -215px; position: relative; color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">이름 : OOO<br/><br/>이메일 : abc****@mail.com<br/><br/>전화번호 : +82 010-****-5678<br/><br/>주소 : OOO</div>
+          <div class="Rectangle3" style="width: 517.53px; height: 239px; left: 425px; top: -435px; position: relative; background: #D9D9D9"></div>
+          <div class="OooOooOooo" style="width: 507.70px; height: 196px; left: 440px; top: -630px; position: relative; color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">요청 종류 : OOO<br/><br/>서비스 종류 : OOO<br/><br/>세부 문의 : OOOO</div>
         </div>
-        <div class="Group50" style="width: 520.26px; height: 239px; left: 456px; top: -239px; position: relative">
-          <div class="Rectangle3" style="width: 517.53px; height: 239px; left: 0px; top: 0px; position: relative; background: #D9D9D9"></div>
-          <div class="OooOooOooo" style="width: 507.70px; height: 196px; left: 20px; top: -200px; position: relative; color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">요청 종류 : OOO<br/><br/>서비스 종류 : OOO<br/><br/>세부 문의 : OOOO</div>
-        </div>
-        <div class="XxXx" style="width: 891px; height: 61px; left: 25px; top: -230px; position: relative"><span style="color: black; font-size: 16px; font-weight: 500; word-wrap: break-word">문의주신 요청 종류에 관하여 예상 소요 일 수는 </span><span style="color: black; font-size: 16px; font-weight: 700; word-wrap: break-word">XX</span><span style="color: black; font-size: 16px; font-weight: 500; word-wrap: break-word"> 일 입니다.<br/>고객님의 세부 문의와 사내 사정에 따라 최대 </span><span style="color: black; font-size: 16px; font-weight: 700; word-wrap: break-word">XX</span><span style="color: black; font-size: 16px; font-weight: 500; word-wrap: break-word"> 일 내까지 소요될 수 있습니다. 이 점 유의 부탁드립니다.</span></div>
-        <div class="Group44" style="width: 120px; height: 50px; left: 600px; top: -200px; position: relative">
+        <div class="blink-button XxXx" id="date" style="cursor: pointer; width: 891px; height: 61px; left: 25px; top: 10px; position: relative"><span style="color: black; font-size: 16px; font-weight: 500; word-wrap: break-word"> 문의주신 요청 종류에 관하여 예상 소요 일 수는 </span><span style="color: black; font-size: 16px; font-weight: 700; word-wrap: break-word">XX</span><span style="color: black; font-size: 16px; font-weight: 500; word-wrap: break-word"> 일 입니다.<br/>고객님의 세부 문의와 사내 상황에 따라 최대 </span><span style="color: black; font-size: 16px; font-weight: 700; word-wrap: break-word">XX</span><span style="color: black; font-size: 16px; font-weight: 500; word-wrap: break-word"> 일 내까지 소요될 수 있습니다. 이 점 유의 부탁드립니다.</span></div>
+        <div class="Group44" style="width: 120px; height: 50px; left: 600px; top: 20px; position: relative">
           <div class="Rectangle4" style="width: 120px; height: 50px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px"></div>
-          <button style="width: 60px; height: 34px; left: 30px; top: -40px; position: relative; color: white; font-size: 22px; font-weight: 500; word-wrap: break-word; background-color: #004667; border: #004667" onClick="location.href='./form_main.html'">제출</button>
+          <button class="blink-button" style="width: 60px; height: 34px; left: 30px; top: -40px; position: relative; color: white; font-size: 22px; font-weight: 500; word-wrap: break-word; background-color: #004667; border: #004667" onClick="location.href='./form_main.html'">제출</button>
         </div>
-        <div class="Group45" style="width: 120px; height: 50px; left: 250px; top: -250px; position: relative">
+        <div class="Group45" style="width: 120px; height: 50px; left: 250px; top: -30px; position: relative">
           <div class="Rectangle4" style="width: 120px; height: 50px; left: 0px; top: 0px; position: relative; background: #D9D9D9; border-radius: 60px"></div>
-          <button style="width: 60px; height: 34px; left: 30px; top: -40px; position: relative; color: black; font-size: 22px; font-weight: 500; word-wrap: break-word; background-color: #D9D9D9; border: #D9D9D9" onClick="location.href='./form_descript.html'">이전</button>
+          <button class="blink-button" style="width: 60px; height: 34px; left: 30px; top: -40px; position: relative; color: black; font-size: 22px; font-weight: 500; word-wrap: break-word; background-color: #D9D9D9; border: #D9D9D9" onClick="location.href='./form_descript.html'">이전</button>
         </div>
       </div>
     </div>
   </div>
   </div>
+  
+       <!-- 팝업 배경 (모달) -->
+       <div id="modalOverlay" class="modal-overlay"></div>
+
+       <!-- 팝업 -->
+       <div id="reviewPopup" class="popup">
+        <div class="popup-title">리뷰 제공</div>
+        문의를 제출하기 전, 요청자가 문의 내역을 재확인 할 수 있어야 합니다.<br>
+        잘못된 요청에 대해서는 정보 유출이나 불필요한 자원 투자로 이어질 수 있습니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+       </div>
+ 
+       <div id="datePopup" class="popup">
+        <div class="popup-title">처리 시간</div>
+        문의를 제출하기 전, 요청자가 예상 처리(소요) 시간에 대한 안내를 제공받아야 합니다.<br>
+        문의 내역과 사내 상황에 따른 변동 기간도 안내함으로 신뢰 관계를 형성할 수 있습니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+       </div>
+
+       <script>
+         function togglePopup(popupId) {
+           const popup = document.getElementById(popupId);
+           const modalOverlay = document.getElementById('modalOverlay');
+ 
+           if (popup.style.display === 'block') {
+             popup.style.display = 'none';
+             modalOverlay.style.display = 'none';
+           } else {
+             popup.style.display = 'block';
+             modalOverlay.style.display = 'block';
+           }
+         }
+ 
+         function closePopup() {
+           document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+           document.getElementById('modalOverlay').style.display = 'none';
+         }
+
+         document.getElementById('review').addEventListener('click', function () {
+           togglePopup('reviewPopup');
+         });
+
+         
+         document.getElementById('date').addEventListener('click', function () {
+           togglePopup('datePopup');
+         });
+
+         document.getElementById('modalOverlay').addEventListener('click', closePopup);
+       </script>
 </body>
 </html>
