@@ -57,6 +57,64 @@
         background: #fff;
         border-color: #fff;
     }
+    
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+        border-color: transparent;
+      }
+
+      50% {
+        opacity: 0.5;
+        border-color: red;
+      }
+    }
+
+    .blink-button {
+      animation: blink 1s infinite;
+      border: 4px solid transparent;
+      border-radius: 8px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+
+    .popup {
+      position: fixed;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: auto;
+      font-size: 16px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 1000;
+    }
+
+    .popup-title {
+      font-weight: bold;
+      color: #004667;
+      margin-bottom: 10px;
+    }
+
+    .popup .close-button {
+      display: block;
+      margin: 20px auto 0 auto;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -121,15 +179,15 @@
             <div style="width: 1081px; height: 52px; color: black; font-size: 32px; font-weight: 800; word-wrap: break-word">개인정보 삭제</div>
             <div class="Card" style="width: 1023px; height: 787px; padding: 12px; background: white; box-shadow: 0px 14px 42px rgba(8.24, 15.25, 52.06, 0.06); border-radius: 12px; justify-content: center; align-items: center; gap: 17px">
               <div style="width: 173px; height: 38px; left: 40px; top: 20px; position: relative; color: black; font-size: 28px; font-weight: 600; word-wrap: break-word">데이터 삭제
-                <button style="width: 31px; height: 29px; left: 780px; top: 20px; position: relative; transform: rotate(180deg); transform-origin: 0 0; color: black; font-size: 36px; font-weight: 500; word-wrap: break-word; background-color: #FFF; border: #FFF" onClick="location.href='./delete_main.html'">></button>
+                <button class="blink-button" style="width: 31px; height: 29px; left: 880px; top: 20px; position: relative; transform: rotate(180deg); transform-origin: 0 0; color: black; font-size: 36px; font-weight: 500; word-wrap: break-word; background-color: #FFF; border: #FFF" onClick="location.href='./delete_main.html'">></button>
               </div>
               <div class="Group26" style="width: 787px; height: 82px; left: 40px; top: 40px; position: relative">
                 <span>
                   <img src="../icons/warning.png" style="width: 31px; height: 29px; left: 0px; top: 12px; position: relative;"><span style="width: 133px; height: 38px; left: 8px; top: 16px; position: relative; color: black; font-size: 24px; font-weight: 600; word-wrap: break-word">주의 사항</span>
                 </span>
-                <div style="width: 751px; left: 46px; top: 0px; position: relative"><span style="color: black; font-size: 20px; font-weight: 500; word-wrap: break-word"><br/></span><span style="color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">삭제된 데이터 및 설정 내역에 대해서는 복원이 불가능합니다.</span></div>
+                <div style="width: 751px; left: 46px; top: 0px; position: relative"><span style="color: black; font-size: 20px; font-weight: 500; word-wrap: break-word"><br/></span><span class="blink-button" id="notice" style="cursor: pointer; color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">삭제된 데이터 및 설정 내역에 대해서는 복원이 불가능합니다.</span></div>
               </div>
-              <div class="Group25" style="width: 891px; height: 159px; left: 40px; top: 100px; position: relative">
+              <div class="blink-button Group25" id="choice" style="cursor: pointer; width: 851px; height: 180px; left: 40px; top: 100px; position: relative">
                 <div style="width: 891px; height: 61px; left: 0px; top: 0px; position: relative; color: black; font-size: 22px; font-weight: 500; word-wrap: break-word">삭제를 원하는 개인정보 항목을 선택하세요.</div>
                 <div class="Rectangle5" style="width: 21px; height: 21px; left: 40px; top: 0px; position: relative; background: #EFEFEF; border: 1px black solid"></div>
                 <div style="width: 336px; height: 26px; left: 80px; top: -22px; position: relative; color: black; font-size: 16px; font-weight: 500; word-wrap: break-word">댓글 목록<br/></div>
@@ -139,20 +197,105 @@
               </div>
               <div class="ComprightAbcMailCom" style="width: 891px; height: 61px; left: 40px; top: 140px; position: relative"><span style="color: black; font-size: 18px; font-weight: 500; word-wrap: break-word">본 계정에 관련되어 CompRight에서 사용 목적으로 저장한 데이터를 삭제합니다.<br/>보안을 위하여 사용자 이메일 주소 </span><span style="color: black; font-size: 18px; font-weight: 700; word-wrap: break-word">(abc****@mail.com)</span><span style="color: black; font-size: 18px; font-weight: 500; word-wrap: break-word"> 인증 번호를 전송하였습니다.</span></div>
               <div class="Group23" style="width: 514px; height: 53px; left: 160px; top: 160px; position: relative">
-                <div class="Rectangle3" style="width: 514px; height: 53px; left: 0px; top: 0px; position: relative; background: #D9D9D9"></div>
-                <div style="width: 124px; height: 29px; left: 17px; top: -40px; position: relative; color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">인증 코드</div>
-              </div>
+                <div class="blink-button Rectangle3" id="code" style="cursor: pointer; width: 514px; height: 53px; left: 0px; top: 0px; position: relative; background: #D9D9D9">
+                  <div style="width: 124px; height: 29px; left: 17px; top: 8px; position: relative; color: black; font-size: 20px; font-weight: 500; word-wrap: break-word">인증 코드</div>
+                </div>
+              </div>  
               <div class="Group22" style="width: 250px; height: 91px; left: 80px; top: 230px; position: relative">
-                <div class="Rectangle4" style="width: 250px; height: 91px; left: 0px; top: 0px; position: relative; background: #D9D9D9; border-radius: 60px"></div>
-                <div style="width: 138.63px; height: 34px; left: 66px; top: -64px; position: relative; color: #1A1818; font-size: 24px; font-weight: 500; word-wrap: break-word">재전송 요청</div>
+                <div class="blink-button Rectangle4" id="auth" style="cursor: pointer; width: 250px; height: 91px; left: 0px; top: 0px; position: relative; background: #D9D9D9; border-radius: 60px">
+                  <div style="width: 138.63px; height: 34px; left: 62px; top: 25px; position: relative; color: #1A1818; font-size: 24px; font-weight: 500; word-wrap: break-word">재전송 요청</div>
+                </div>
               </div>
               <div class="Group24" style="width: 248px; height: 91px; left: 540px; top: 130px; position: relative">
-                <div class="Rectangle4" style="width: 248px; height: 91px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px"></div>
-                <div style="width: 161px; height: 34px; left: 66px; top: -64px; position: relative; color: white; font-size: 24px; font-weight: 500; word-wrap: break-word">인증 및 삭제</div>
+                <div class="blink-button Rectangle4" id="delete" style="cursor: pointer; width: 248px; height: 91px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px">
+                  <div style="width: 161px; height: 34px; left: 62px; top: 24px; position: relative; color: white; font-size: 24px; font-weight: 500; word-wrap: break-word">인증 및 삭제</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- 팝업 배경 (모달) -->
+      <div id="modalOverlay" class="modal-overlay"></div>
+
+      <!-- 팝업 -->
+      <div id="noticePopup" class="popup">
+        <div class="popup-title">삭제 안내</div>
+        개인정보 삭제 요청 시 정보주체가 확인해야 할 주의 사항을 확인하세요.<br>
+        삭제 전후로 변하는 점, 복구 불가능성을 설명하여 선택에 대한 중요성을 설명합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <div id="choicePopup" class="popup">
+        <div class="popup-title">삭제 선택</div>
+        삭제될 개인정보 종류를 정보주체가 선택 가능할 수 있는지 확인하세요.<br>
+        각 삭제 항목에 대한 설명이 부가적으로 제공되어야 합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <div id="codePopup" class="popup">
+        <div class="popup-title">인증 코드</div>
+        인증 코드가 유추하기 힘들면서 안전한 길이로 발급되고 있는지 확인하세요.<br>
+        또한 특수문자 입력을 제한 받는 것으로 공격 시도에 대한 예방이 가능합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <div id="authPopup" class="popup">
+        <div class="popup-title">횟수 제한</div>
+        2차 인증 시 과도한 요청 횟수에 대한 제한 및 차단이 진행되는지 확인하세요.<br>
+        과도한 요청과 같은 의심스러운 행동에 대하여 빠른 조치가 가능합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <div id="deletePopup" class="popup">
+        <div class="popup-title">삭제 진행</div>
+        개인정보 삭제 요청 시 2차 인증을 통해 정보주체 본인임을 확인하세요.<br>
+        또한 삭제에 관한 링크를 제공하는 경우, 타인이 쉽게 유추할 수 없게 패킷 및 URL을 구성하세요.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <script>
+        function togglePopup(popupId) {
+          const popup = document.getElementById(popupId);
+          const modalOverlay = document.getElementById('modalOverlay');
+
+          if (popup.style.display === 'block') {
+            popup.style.display = 'none';
+            modalOverlay.style.display = 'none';
+          } else {
+            popup.style.display = 'block';
+            modalOverlay.style.display = 'block';
+          }
+        }
+
+        function closePopup() {
+          document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+          document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        document.getElementById('notice').addEventListener('click', function () {
+          togglePopup('noticePopup');
+        });
+
+        document.getElementById('choice').addEventListener('click', function () {
+          togglePopup('choicePopup');
+        });
+
+        document.getElementById('code').addEventListener('click', function () {
+          togglePopup('codePopup');
+        });
+
+        document.getElementById('auth').addEventListener('click', function () {
+          togglePopup('authPopup');
+        });
+
+        
+        document.getElementById('delete').addEventListener('click', function () {
+          togglePopup('deletePopup');
+        });
+
+        document.getElementById('modalOverlay').addEventListener('click', closePopup);
+      </script>
 </body>
 </html>
