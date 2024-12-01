@@ -53,6 +53,64 @@
         background: #fff;
         border-color: #fff;
     }
+        
+    @keyframes blink {
+      0%,
+      100% {
+        opacity: 1;
+        border-color: transparent;
+      }
+
+      50% {
+        opacity: 0.5;
+        border-color: red;
+      }
+    }
+
+    .blink-button {
+      animation: blink 1s infinite;
+      border: 4px solid transparent;
+      border-radius: 8px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 999;
+    }
+
+    .popup {
+      position: fixed;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: auto;
+      font-size: 16px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: none;
+      z-index: 1000;
+    }
+
+    .popup-title {
+      font-weight: bold;
+      color: #004667;
+      margin-bottom: 10px;
+    }
+
+    .popup .close-button {
+      display: block;
+      margin: 20px auto 0 auto;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -91,7 +149,7 @@
                     <img src="../icons/download.png" style="height: 15px; width: 15px">
                     <div class="Dashboard" style="flex: 1 1 0; color: #202020; font-size: 16px; font-weight: 500; word-wrap: break-word">개인정보 다운로드</div>
                   </div>
-                  <div class="Btn" style="align-self: stretch; padding-top: 8px; padding-bottom: 8px; border-radius: 40px; justify-content: flex-start; align-items: center; gap: 12px; display: inline-flex">
+                  <div class="blink-button Btn" id="title" style="cursor: pointer; align-self: stretch; padding-top: 8px; padding-bottom: 8px; justify-content: flex-start; align-items: center; gap: 12px; display: inline-flex">
                     <img src="../icons/optout.png" style="height: 18px; width: 18px; filter: invert(17%) sepia(98%) saturate(1052%) hue-rotate(170deg) brightness(99%) contrast(101%);">
                     <div class="Dashboard" style="flex: 1 1 0; color: #014768; font-size: 13.5px; font-weight: 500; word-wrap: break-word">개인정보 동의 철회</div>
                   </div>
@@ -122,38 +180,88 @@
                   <span style="width: 131px; height: 54.98px; left: 14px; top: -30px; position: relative; color: black; font-size: 16px; font-weight: 500; word-wrap: break-word">서비스 선택</span>
                   <span style="width: 52px; height: 94.47px; left: 340px; top: 90px; position: relative; color: black; font-size: 50px; font-weight: 700; word-wrap: break-word">...</span>
               </div>
-              <div class="Group51" style="width: 179px; height: 50px; left: 100px; top: -40px; position: relative">
+              <div class="Group51" style="width: 179px; height: 50px; left: 100px; top: -70px; position: relative">
                 <div class="Rectangle4" style="width: 179px; height: 50px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px"></div>
-                <button style="width: 140px; height: 25px; left: 20px; top: -44px; position: relative; color: white; font-size: 22px; font-weight: 500; word-wrap: break-word; background-color: #004667; border: #004667" onClick="location.href='./withdraw_service.html'">쇼핑하기</button>
+                <button class="blink-button" style="width: 140px; height: 25px; left: 20px; top: -44px; position: relative; color: white; font-size: 22px; font-weight: 500; word-wrap: break-word; background-color: #004667; border: #004667" onClick="location.href='./withdraw_service.html'">쇼핑하기</button>
               </div>
-              <div class="Group52" style="width: 179px; height: 50px; left: 300px; top: -90px; position: relative">
+              <div class="Group52" style="width: 179px; height: 50px; left: 300px; top: -120px; position: relative">
                 <div class="Rectangle4" style="width: 179px; height: 50px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px"></div>
                 <div style="width: 140px; height: 25px; left: 56px; top: -44px; position: relative; color: white; font-size: 22px; font-weight: 500; word-wrap: break-word">게시물</div>
               </div>
-              <div class="Group55" style="width: 179px; height: 50px; left: 570px; top: -140px; position: relative">
+              <div class="Group55" style="width: 179px; height: 50px; left: 570px; top: -170px; position: relative">
                 <div class="Rectangle4" style="width: 179px; height: 50px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px"></div>
                 <div style="width: 140px; height: 25px; left: 44px; top: -44px; position: relative; color: white; font-size: 22px; font-weight: 500; word-wrap: break-word">리뷰 공유</div>
               </div>
-              <div class="Group54" style="width: 179px; height: 50px; left: 770px; top: -190px; position: relative">
+              <div class="Group54" style="width: 179px; height: 50px; left: 770px; top: -220px; position: relative">
                 <div class="Rectangle4" style="width: 179px; height: 50px; left: 0px; top: 0px; position: relative; background: #2F3031; border-radius: 60px"></div>
                 <div style="width: 140px; height: 25px; left: 44px; top: -44px; position: relative; color: white; font-size: 22px; font-weight: 500; word-wrap: break-word">광고 수신</div>
               </div>
               <div style="width: 606px; height: 29px; left: 40px; top: -130px; position: relative; color: black; font-size: 26px; font-weight: 600; word-wrap: break-word">개인정보 판매 및 공유</div>
               <div style="width: 424px; height: 29px; left: 80px; top: -120px; position: relative; color: black; font-size: 18px; font-weight: 700; word-wrap: break-word">서비스 발전을 위한 데이터 제공</div>
-              <div class="Compright" style="width: 864px; height: 61px; left: 80px; top: -120px; position: relative"><span style="color: black; font-size: 16px; font-weight: 500; word-wrap: break-word">이 설정은 CompRight가 나의 정보를 사용하고 처리하여 서비스를 이해하고 향상할 수 있게 합니다.<br/></span><span style="color: #0044FF; font-size: 16px; font-weight: 500; word-wrap: break-word">여기에서 자세히 알아보십시오.</span></div>
-              <div class="Group1" style="width: 62px; height: 28.57px; left: 900px; top: -210px; position: relative">
-                <div class="Rectangle1" style="width: 62px; height: 28.57px; left: 0px; top: 0px; position: relative; background: #15B204; border-radius: 50px"></div>
-                <div class="Ellipse1" style="width: 23.72px; height: 23.72px; left: 35.04px; top: -26px; position: relative; background: white; border-radius: 9999px"></div>
-              </div>
+              <div class="Compright" style="width: 864px; height: 61px; left: 80px; top: -120px; position: relative"><span style="color: black; font-size: 16px; font-weight: 500; word-wrap: break-word">이 설정은 CompRight가 나의 정보를 사용하고 처리하여 서비스를 이해하고 향상할 수 있게 합니다.<br/></span><span style="color: #0044FF; font-size: 16px; font-weight: 500; word-wrap: break-word">여기에서 자세히 알아보십시오.</span></div>       
               <div style="width: 465px; height: 29px; left: 80px; top: -130px; position: relative; color: black; font-size: 18px; font-weight: 700; word-wrap: break-word">맞춤 서비스를 위한 데이터 제공</div>
               <div class="Compright" style="width: 890px; height: 61px; left: 80px; top: -130px; position: relative"><span style="color: black; font-size: 16px; font-weight: 500; word-wrap: break-word">CompRight가 나의 정보(대화 상대, 사용 서비스 등)를 사용해 맞춤 서비스를 제공하도록 합니다.<br/></span><span style="color: #0044FF; font-size: 16px; font-weight: 500; word-wrap: break-word">여기에서 자세히 알아보십시오.</span></div>
-              <div class="Group2" style="width: 62px; height: 28.57px; left: 900px; top: -210px; position: relative">
-                <div class="Rectangle1" style="width: 62px; height: 28.57px; left: 0px; top: 0px; position: relative; background: #15B204; border-radius: 50px"></div>
-                <div class="Ellipse1" style="width: 23.72px; height: 23.72px; left: 35.04px; top: -26px; position: relative; background: white; border-radius: 9999px"></div>
+              <div class="blink-button" id="toggle" style="cursor: pointer; width: 100px; height: 150px; position: relative; left: 860px; top: -300px">
+                <div class="Group1" style="width: 62px; height: 28.57px; left: 20px; top: 20px; position: relative">
+                  <div class="Rectangle1" style="width: 62px; height: 28.57px; left: 0px; top: 0px; position: relative; background: #15B204; border-radius: 50px"></div>
+                  <div class="Ellipse1" style="width: 23.72px; height: 23.72px; left: 35.04px; top: -26px; position: relative; background: white; border-radius: 9999px"></div>
+                </div>
+                <div class="Group2" style="width: 62px; height: 28.57px; left: 20px; top: 70px; position: relative">
+                  <div class="Rectangle1" style="width: 62px; height: 28.57px; left: 0px; top: 0px; position: relative; background: #15B204; border-radius: 50px"></div>
+                  <div class="Ellipse1" style="width: 23.72px; height: 23.72px; left: 35.04px; top: -26px; position: relative; background: white; border-radius: 9999px"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+            
+      <!-- 팝업 배경 (모달) -->
+      <div id="modalOverlay" class="modal-overlay"></div>
+
+      <!-- 팝업 -->
+      <div id="titlePopup" class="popup">
+        <div class="popup-title">접근 위치</div>
+        동의 철회 기능이 쉽게 인지할 수 있는 위치에 있는지 확인하세요.<br>
+        정보주체의 접근성에 대해 객관적으로 간편해야 합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <div id="togglePopup" class="popup">
+        <div class="popup-title">구현 형식</div>
+        사용자가 토글, 체크박스 방식 등으로 각 항목에 대한 설정을 편히 할 수 있는지 확인하세요.<br>
+        개인정보 수집에 대한 동의를 받는 방식과 유사한 정도의 난이도여야 합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
+      </div>
+
+      <script>
+        function togglePopup(popupId) {
+          const popup = document.getElementById(popupId);
+          const modalOverlay = document.getElementById('modalOverlay');
+
+          if (popup.style.display === 'block') {
+            popup.style.display = 'none';
+            modalOverlay.style.display = 'none';
+          } else {
+            popup.style.display = 'block';
+            modalOverlay.style.display = 'block';
+          }
+        }
+
+        function closePopup() {
+          document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+          document.getElementById('modalOverlay').style.display = 'none';
+        }
+
+        document.getElementById('title').addEventListener('click', function () {
+          togglePopup('titlePopup');
+        });
+
+        document.getElementById('toggle').addEventListener('click', function () {
+          togglePopup('togglePopup');
+        });
+
+        document.getElementById('modalOverlay').addEventListener('click', closePopup);
+      </script>
 </body>
 </html>
