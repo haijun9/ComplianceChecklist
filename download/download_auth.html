@@ -196,8 +196,9 @@
                   </div>
                 </div>
                 <div class="Group26" style="width: 322px; height: 91px; left: 610px; top: -7px; position: relative">
-                  <div class="Rectangle4" style="width: 250px; height: 91px; left: 0px; top: 0px; position: relative; background: #004667; border-radius: 60px"></div>
-                  <button class="blink-button" style="width: 160px; height: 34px; left: 46px; top: -64px; position: relative; color: white; font-size: 26px; font-weight: 500; word-wrap: break-word; background-color: #004667; border: #004667" onClick="location.href='./download_main.html'">이메일 인증</button>
+                  <div class="blink-button Rectangle4" id="done" style="width: 250px; height: 91px; left: 0px; top: 0px; position: relative; background: #004667; border: #004667; border-radius: 60px; cursor: pointer">
+                    <span style="width: 160px; height: 34px; left: 64px; top: 24px; position: relative; color: white; font-size: 26px; font-weight: 500; word-wrap: break-word; background-color: #004667; border: #004667">이메일 인증</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -222,6 +223,13 @@
          일정 시간 내에 반복적인 요청이 진행되지 않도록 제한하는 것으로 공격을 예방할 수 있습니다.
          <button class="btn btn-secondary close-button" onclick="closePopup()">닫기</button>
        </div>
+
+       <div id="donePopup" class="popup">
+        <div class="popup-title">요청 완료</div>
+        이와 같은 일련의 과정을 통하여 우수한 다운로드 요청을 구현할 수 있습니다.<br>
+        '닫기' 버튼을 누르는 것으로 요청에 대한 응답을 확인하러 이동합니다.
+        <button class="btn btn-secondary close-button" onclick="closePopup_done()">닫기</button>
+      </div>
  
        <script>
          function togglePopup(popupId) {
@@ -241,6 +249,12 @@
            document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
            document.getElementById('modalOverlay').style.display = 'none';
          }
+
+         function closePopup_done() {
+           document.querySelectorAll('.popup').forEach(popup => popup.style.display = 'none');
+           document.getElementById('modalOverlay').style.display = 'none';
+           location.href = './download_main.html';
+         }
  
          document.getElementById('code').addEventListener('click', function () {
            togglePopup('codePopup');
@@ -248,6 +262,10 @@
  
          document.getElementById('request').addEventListener('click', function () {
            togglePopup('requestPopup');
+         });
+
+         document.getElementById('done').addEventListener('click', function () {
+           togglePopup('donePopup');
          });
  
          document.getElementById('modalOverlay').addEventListener('click', closePopup);
